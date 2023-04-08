@@ -24,7 +24,6 @@
 def readPlotCEPEL(file):
 
 	import pandas as pd
-	print(file)
 
 	# Ler o o arquivo PLT
 	with open(file, 'r', encoding="latin-1") as f:
