@@ -22,7 +22,11 @@
 #  
 
 def readPlotCEPEL(file):
+
+	import pandas as pd
 	print(file)
+
+	# Ler o cabeçalho do arquivo PLT
 	with open(file, 'r', encoding="latin-1") as f:
 		
 		# Ler quantidade de variáveis
@@ -35,13 +39,18 @@ def readPlotCEPEL(file):
 			vars.append(f.readline().strip())
 		print(vars)
 
-		# Ler os dados
-		i = 0
-		for line in f:
-			print("%s"%line)
-			i+=1
-			if i == qtdvar+1+6:
-				break
+		# Ler resultados na memória, como string		
+		dados = f.read()
+			
+	# Processar os resultados, gerando uma lista de strings
+	dados = dados.replace('\n','').strip().split(' ')
+
+	# Organizar os resultados em lista de listas, para formato adequado ao Pandas
+	dadoslst = []
+	for i in range(0,len(dados),qtdvar):
+		dadoslst.append( [float(dados[i+j]) for j in range(0,qtdvar)] )
+
+	return(pd.DataFrame(data=dadoslst,columns=vars))
 
 
 
