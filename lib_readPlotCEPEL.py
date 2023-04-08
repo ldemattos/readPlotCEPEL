@@ -26,18 +26,16 @@ def readPlotCEPEL(file):
 	import pandas as pd
 	print(file)
 
-	# Ler o cabeçalho do arquivo PLT
+	# Ler o o arquivo PLT
 	with open(file, 'r', encoding="latin-1") as f:
 		
 		# Ler quantidade de variáveis
 		qtdvar = int(f.readline())
-		print(qtdvar)
 
 		# Ler descrição das variáveis
 		vars = []
 		for i in range(0,qtdvar):
 			vars.append(f.readline().strip())
-		print(vars)
 
 		# Ler resultados na memória, como string		
 		dados = f.read()
@@ -51,6 +49,3 @@ def readPlotCEPEL(file):
 		dadoslst.append( [float(dados[i+j]) for j in range(0,qtdvar)] )
 
 	return(pd.DataFrame(data=dadoslst,columns=vars))
-
-
-
