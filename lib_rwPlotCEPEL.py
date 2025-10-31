@@ -21,12 +21,12 @@
 #  MA 02110-1301, USA.
 #  
 
-def readPlotCEPEL(file):
+import pandas as pd
 
-	import pandas as pd
+def readPlotCEPEL(file_in):
 
 	# Ler o o arquivo PLT
-	with open(file, 'r', encoding="latin-1") as f:
+	with open(file_in, 'r', encoding="latin-1") as f:
 		
 		# Ler quantidade de variáveis
 		qtdvar = int(f.readline())
@@ -48,3 +48,26 @@ def readPlotCEPEL(file):
 		dadoslst.append( [float(dados[i+j]) for j in range(0,qtdvar)] )
 
 	return(pd.DataFrame(data=dadoslst,columns=vars))
+	
+def writePlotCEPEL(file_out,df,var=[]):
+	
+	if len(var) == 0:
+		var = df.columns
+		
+	# Abrir arquivo para escrita
+	with open(file_out, 'w+', encoding="latin-1") as f:
+		
+		# Escrever quantidade de variáveis
+		f.write("%i\n"%len(var))
+		
+		# Listar variáveis
+		print(var)
+		for i in var:
+			f.write("%s\n"%i)			
+		
+		dadoslst = df[var].to_numpy().flatten()
+		for i in range(0,len(dadoslst)+1,6):			
+			file_row = ' '.join(map(str, dadoslst[i:i+6]))
+			f.write(" %s\n"%file_row)
+			
+	return(0)

@@ -22,7 +22,7 @@
 #  
 
 import sys
-from lib_readPlotCEPEL import readPlotCEPEL
+from lib_rwPlotCEPEL import readPlotCEPEL
 
 def main(args):
 	
